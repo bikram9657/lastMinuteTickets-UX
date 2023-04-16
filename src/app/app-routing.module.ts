@@ -1,16 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MfHeaderComponent } from './mf-header/mf-header.component';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: MfHeaderComponent,
+    component: HeaderComponent,
+     children: [
+      { 
+        path: 'login', 
+        component: LoginComponent 
+      },
+    ],
   },
   {
     path: '**',
     redirectTo: 'home',
-  },
+  }
 ];
 
 @NgModule({
