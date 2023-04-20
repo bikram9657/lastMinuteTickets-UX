@@ -7,6 +7,10 @@ import { HeaderModule } from './header/header.module';
 import { LoginModule } from './login/login.module';
 import { EmailService } from './services/email.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule, AuthHttpInterceptor  } from '@auth0/auth0-angular';
+import { authConfig } from './auth_config';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,20 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HeaderModule,
     LoginModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AuthModule.forRoot({
+      domain: authConfig.domain,
+      clientId: authConfig.clientId,
+      authorizationParams: {
+        audience: authConfig.audience,
+        redirect_uri: window.location.origin,
+      },
+      httpInterceptor: {
+        allowedList: ['http://localhost:8080/*']
+      },
+    }),
   ],
   providers: [EmailService],
   bootstrap: [AppComponent]
