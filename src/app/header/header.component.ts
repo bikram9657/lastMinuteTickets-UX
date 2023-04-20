@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent {
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
+  toggleMenu() {
+    const navbarNav = this.elRef.nativeElement.querySelector('#navbarNav');
+    this.renderer.removeClass(navbarNav, 'show');
+  }
 }
